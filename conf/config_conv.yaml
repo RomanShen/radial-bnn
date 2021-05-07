@@ -1,0 +1,10 @@
+defaults:
+  - datamodule: default
+  - lightningmodule: conv
+  - trainer: conv
+
+seed: 111
+
+hydra:
+  run:
+    dir: ./outputs/${now:%Y-%m-%d_%H-%M-%S}
