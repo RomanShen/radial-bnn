@@ -48,8 +48,8 @@ def run(cfg):
 
     # early stopping
     early_stopping_callback = EarlyStopping(
-        monitor="val/acc", min_delta=0.0, patience=5, verbose=False, mode="max"
-    )
+        monitor="val/acc", min_delta=0.0, patience=10, verbose=False, mode="max"
+    )  # for bnn, wo need more patience due to parameter sensitive
 
     # timer
     timer = Timer()
