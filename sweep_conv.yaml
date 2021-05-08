@@ -1,0 +1,19 @@
+program: run_conv.py
+method: grid
+metric:
+  name: test/acc
+  goal: maximize
+parameters:
+  threshold:
+    values:
+      - 111
+      - 222
+      - 333
+      - 444
+      - 555
+
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - ${args_no_hyphens}

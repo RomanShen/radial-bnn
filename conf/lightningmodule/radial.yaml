@@ -1,0 +1,19 @@
+# @package _group_
+in_channels: 1
+out_features: 10
+initial_rho: -4
+initial_mu_std: he
+variational_distribution: radial
+variational_train_samples: 1
+variational_val_samples: 32
+pretrain_epochs: 1
+lr: 10e-3
+amsgrad: True
+batch_size: 64
+prior:
+  name: gaussian_prior
+  sigma: 1
+  mu: 0
+loss:
+  binary: False
+  regression: False

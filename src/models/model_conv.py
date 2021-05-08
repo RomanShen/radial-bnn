@@ -37,7 +37,7 @@ class ConvClassifier(nn.Module):
         x = F.relu(self.third_conv(x))
         x = self.max_pool(x)
         s = x.shape
-        x = torch.reshape(x, (s[0], s[1], -1))
+        x = torch.reshape(x, (s[0], -1))
         x = F.relu(self.fc1(x))
         x = self.last_layer(x)
         logx = F.log_softmax(x, dim=-1)

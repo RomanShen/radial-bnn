@@ -1,9 +1,9 @@
-#!/usr/bin/env python
-# -*- coding:utf-8 -*-
+#!/usr/bin/env python  
+# -*- coding:utf-8 -*-  
 """ 
 @author: romanshen 
-@file: run_conv.py 
-@time: 2021/05/07
+@file: run_radial.py 
+@time: 2021/05/08
 @contact: xiangqing.shen@njust.edu.cn
 """
 
@@ -20,7 +20,7 @@ from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 from pytorch_lightning.loggers import WandbLogger
 from pytorch_lightning.callbacks import Timer
 
-from src.lightning_classes.module_conv import ConvModule
+from src.lightning_classes.module_radial import SVIConvModule
 from src.lightning_classes.datamodule_mnist import MNISTDataModule
 
 
@@ -61,7 +61,7 @@ def run(cfg):
 
     # logger
     wandb_logger = WandbLogger(
-        name="conv_cnn_" + datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"),
+        name="radial_cnn_" + datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"),
         save_dir=output_dir,
         project="radial-bnn",
     )
@@ -75,7 +75,14 @@ def run(cfg):
     dm.setup()
 
     # model
-    model = ConvModule(cfg=cfg.lightningmodule)
+    lightningmodule_cfg = cfg.lightningmodule
+    num_batch = OmegaConf.create({
+        "num_train_batches": len(dm.train_dataloader()),
+        "num_val_batches": len(dm.val_dataloader()),
+        "num_test_batches": len(dm.test_dataloader())
+    })
+    new_cfg = OmegaConf.merge(num_batch, lightningmodule_cfg)
+    model = SVIConvModule(cfg=new_cfg)
 
     # train model
     trainer.fit(model=model, datamodule=dm)
@@ -87,7 +94,7 @@ def run(cfg):
     logger.info("{} elapsed in training".format(timer.time_elapsed("train")))
 
 
-@hydra.main(config_path="conf", config_name="config_conv")
+@hydra.main(config_path="conf", config_name="config_radial")
 def run_model(cfg: DictConfig):
     print(OmegaConf.to_yaml(cfg))
     run(cfg)

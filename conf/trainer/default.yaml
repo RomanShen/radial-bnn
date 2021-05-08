@@ -1,0 +1,4 @@
+# @package _group_
+gpus: 1
+fast_dev_run: False
+max_epochs: 50

@@ -49,7 +49,8 @@ class Elbo:
 
     def set_model(self, model, config):
         self.model = model
-        self.batch_size = config["data_loader"]["args"]["batch_size"]
+        # self.batch_size = config["data_loader"]["args"]["batch_size"]
+        self.batch_size = config
 
     def set_num_batches(self, num_batches):
         self.num_batches = num_batches

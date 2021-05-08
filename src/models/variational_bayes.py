@@ -16,6 +16,8 @@ import torch.nn.functional as F
 import numpy as np
 
 from torch.autograd import Variable
+from omegaconf import OmegaConf
+
 from src.models import distributions
 
 
@@ -56,6 +58,7 @@ class SVI_Base(nn.Module):
             distributions, prior["name"]
         ), "The prior named in config is not defined in utils.distributions"
         prior_args = copy.deepcopy(prior)
+        prior_args = OmegaConf.to_container(prior_args)
         prior_args["log2pi"] = torch.log(
             Variable(
                 torch.from_numpy(np.array(2.0 * np.pi)).type(self.data_type),

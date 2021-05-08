@@ -9,12 +9,13 @@
 
 
 import torch
-from torch import nn
+import torch.nn.functional as F
 
 from src.models.variational_bayes import SVIConv2D, SVIMaxPool2D, SVI_Linear
+from src.models.base_model import BaseModel
 
 
-class SVIConvClassifier(nn.Module):
+class SVIConvClassifier(BaseModel):
     def __init__(
         self,
         in_channels,

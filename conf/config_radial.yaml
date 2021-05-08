@@ -1,6 +1,6 @@
 defaults:
   - datamodule: default
-  - lightningmodule: conv
+  - lightningmodule: radial
   - trainer: default
 
 seed: 111

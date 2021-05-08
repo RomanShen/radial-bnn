@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding:utf-8 -*-  
+# -*- coding:utf-8 -*-
 """ 
 @author: romanshen 
 @file: module_conv.py 
@@ -16,14 +16,12 @@ from src.models.model_conv import ConvClassifier
 
 
 class ConvModule(pl.LightningModule):
-
     def __init__(self, cfg):
         super().__init__()
         self.save_hyperparameters(cfg)
 
         self.model = ConvClassifier(
-            in_channels=cfg.in_channels,
-            out_features=cfg.out_features
+            in_channels=cfg.in_channels, out_features=cfg.out_features
         )
 
         self.criterion = torch.nn.NLLLoss()
@@ -41,7 +39,7 @@ class ConvModule(pl.LightningModule):
         loss = self.criterion(logxx, y)
         preds = torch.argmax(xx, dim=1)
         return loss, preds, y
-    
+
     def training_step(self, batch, batch_idx):
         loss, preds, targets = self.step(batch)
 
@@ -73,5 +71,8 @@ class ConvModule(pl.LightningModule):
 
     def configure_optimizers(self):
         return torch.optim.Adam(
-            params=self.parameters(), lr=self.hparams.lr, weight_decay=self.hparams.weight_decay
+            params=self.parameters(),
+            lr=self.hparams.lr,
+            weight_decay=self.hparams.weight_decay,
+            amsgrad=self.hparams.amsgrad,
         )
