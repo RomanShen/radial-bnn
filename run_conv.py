@@ -40,7 +40,7 @@ def run(cfg):
     checkpoint_callback = ModelCheckpoint(
         monitor="val/acc",
         dirpath=output_dir,
-        filename="{epoch:02d}-{val/acc:.2f}",
+        filename="{epoch:02d}",
         save_top_k=3,
         mode="max",
     )
