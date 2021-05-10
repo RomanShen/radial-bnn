@@ -37,7 +37,9 @@ All experimental results are available online [here](https://wandb.ai/xqshen/rad
 ### Citation   
 ```
 @InProceedings{pmlr-v108-farquhar20a, 
-title = {Radial Bayesian Neural Networks: Beyond Discrete Support In Large-Scale Bayesian Deep Learning}, author = {Farquhar, Sebastian and Osborne, Michael A. and Gal, Yarin}, booktitle = {Proceedings of the Twenty Third International Conference on Artificial Intelligence and Statistics}, 
+title = {Radial Bayesian Neural Networks: Beyond Discrete Support In Large-Scale Bayesian Deep Learning}, 
+author = {Farquhar, Sebastian and Osborne, Michael A. and Gal, Yarin}, 
+booktitle = {Proceedings of the Twenty Third International Conference on Artificial Intelligence and Statistics}, 
 pages = {1352--1362}, 
 year = {2020}, 
 editor = {Silvia Chiappa and Roberto Calandra}, 
