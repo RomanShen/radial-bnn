@@ -1,8 +1,8 @@
-<center>
+<div align="center">
 
 # Radial Bayesian Neural Networks
 
-</center>
+</div>
  
 ## Description   
 This repository contains the code for the paper [Radial Bayesian Neural Networks: Beyond Discrete Support in Large-Scale Bayesian Deep Learning](https://arxiv.org/abs/1907.00865).
