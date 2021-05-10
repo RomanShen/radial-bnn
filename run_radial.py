@@ -1,5 +1,5 @@
-#!/usr/bin/env python  
-# -*- coding:utf-8 -*-  
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """ 
 @author: romanshen 
 @file: run_radial.py 
@@ -8,21 +8,19 @@
 """
 
 
+import datetime
 import logging
 import os
-import datetime
 
-from omegaconf import OmegaConf, DictConfig
-import pytorch_lightning as pl
 import hydra
-from pytorch_lightning.callbacks import ModelCheckpoint
+import pytorch_lightning as pl
+from omegaconf import DictConfig, OmegaConf
+from pytorch_lightning.callbacks import ModelCheckpoint, Timer
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 from pytorch_lightning.loggers import WandbLogger
-from pytorch_lightning.callbacks import Timer
 
-from src.lightning_classes.module_radial import SVIConvModule
 from src.lightning_classes.datamodule_mnist import MNISTDataModule
-
+from src.lightning_classes.module_radial import SVIConvModule
 
 logger = logging.getLogger(__name__)
 
@@ -48,17 +46,13 @@ def run(cfg):
 
     # early stopping
     early_stopping_callback = EarlyStopping(
-        monitor="val/acc", min_delta=0.0, patience=5, verbose=False, mode="max"
+        monitor="val/acc", min_delta=0.0, patience=10, verbose=False, mode="max"
     )
 
     # timer
     timer = Timer()
 
-    callbacks = [
-        early_stopping_callback,
-        checkpoint_callback,
-        timer
-    ]
+    callbacks = [early_stopping_callback, checkpoint_callback, timer]
 
     # logger
     wandb_logger = WandbLogger(
@@ -77,11 +71,13 @@ def run(cfg):
 
     # model
     lightningmodule_cfg = cfg.lightningmodule
-    num_batch = OmegaConf.create({
-        "num_train_batches": len(dm.train_dataloader()),
-        "num_val_batches": len(dm.val_dataloader()),
-        "num_test_batches": len(dm.test_dataloader())
-    })
+    num_batch = OmegaConf.create(
+        {
+            "num_train_batches": len(dm.train_dataloader()),
+            "num_val_batches": len(dm.val_dataloader()),
+            "num_test_batches": len(dm.test_dataloader()),
+        }
+    )
     new_cfg = OmegaConf.merge(num_batch, lightningmodule_cfg)
     model = SVIConvModule(cfg=new_cfg)
 

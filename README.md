@@ -1,51 +1,50 @@
-<div align="center">    
- 
-# Your Project Name     
+<center>
 
-[![Paper](http://img.shields.io/badge/paper-arxiv.1001.2234-B31B1B.svg)](https://www.nature.com/articles/nature14539)
-[![Conference](http://img.shields.io/badge/NeurIPS-2019-4b44ce.svg)](https://papers.nips.cc/book/advances-in-neural-information-processing-systems-31-2018)
-[![Conference](http://img.shields.io/badge/ICLR-2019-4b44ce.svg)](https://papers.nips.cc/book/advances-in-neural-information-processing-systems-31-2018)
-[![Conference](http://img.shields.io/badge/AnyConference-year-4b44ce.svg)](https://papers.nips.cc/book/advances-in-neural-information-processing-systems-31-2018)  
-<!--
-ARXIV   
-[![Paper](http://img.shields.io/badge/arxiv-math.co:1480.1111-B31B1B.svg)](https://www.nature.com/articles/nature14539)
--->
+# Radial Bayesian Neural Networks
 
-
-<!--  
-Conference   
--->   
-</div>
+</center>
  
 ## Description   
-What it does   
+This repository contains the code for the paper [Radial Bayesian Neural Networks: Beyond Discrete Support in Large-Scale Bayesian Deep Learning](https://arxiv.org/abs/1907.00865).
+
+We only run experiments on the MNIST dataset.
 
 ## How to run   
 First, install dependencies   
 ```bash
 # clone src   
-git clone https://github.com/YourGithubName/deep-learning-project-template
+git clone https://github.com/RomanShen/radial-bnn.git
 
-# install src   
-cd deep-learning-project-template 
-pip install -e .   
+# install dependencies 
+cd radial-bnn
 pip install -r requirements.txt
  ```   
- Next, navigate to any file and run it.   
+Next, run either convolutional or radial version MNIST experiments.   
  ```bash
-# module folder
-cd project
+# convolutional version
+python run_conv.py    
+```
+For multiple runs with different seeds, go to [WandB Sweeps](https://docs.wandb.ai/guides/sweeps/quickstart) for help.
 
-# run module (example: mnist as your main contribution)   
-python lit_classifier_main.py    
+Basically, run following commands for convolutional version.
+```bash
+wandb sweep sweep_conv.yaml
+wandb agent your-sweep-id
 ```
 
+## Results
+All experimental results are available online [here](https://wandb.ai/xqshen/radial-bnn?workspace=user-xqshen).
 ### Citation   
 ```
-@article{YourName,
-  title={Your Title},
-  author={Your team},
-  journal={Location},
-  year={Year}
-}
+@InProceedings{pmlr-v108-farquhar20a, 
+title = {Radial Bayesian Neural Networks: Beyond Discrete Support In Large-Scale Bayesian Deep Learning}, author = {Farquhar, Sebastian and Osborne, Michael A. and Gal, Yarin}, booktitle = {Proceedings of the Twenty Third International Conference on Artificial Intelligence and Statistics}, 
+pages = {1352--1362}, 
+year = {2020}, 
+editor = {Silvia Chiappa and Roberto Calandra}, 
+volume = {108}, 
+series = {Proceedings of Machine Learning Research}, 
+month = {26--28 Aug}, 
+publisher = {PMLR}, 
+pdf = {http://proceedings.mlr.press/v108/farquhar20a/farquhar20a.pdf}, 
+url = { http://proceedings.mlr.press/v108/farquhar20a.html }, 
 ```   
